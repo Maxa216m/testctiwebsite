@@ -5,7 +5,7 @@
     <title>Hallo Wereld!!!</title>
 </head>
 <body>
-    <h1>Hallo wereld</h1>
+    <h1>Hallo wereld!!! :D</h1>
 
     <?php
     function databaseconnectie() {

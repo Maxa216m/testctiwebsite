@@ -2,7 +2,7 @@
 <html lang="nl">
 <head>
     <meta charset="UTF-8">
-    <title>Hallo Wereld</title>
+    <title>Hallo Wereld!!!</title>
 </head>
 <body>
     <h1>Hallo wereld</h1>

@@ -2,59 +2,43 @@
 <html lang="nl">
 <head>
     <meta charset="UTF-8">
-    <title>Hallo Wereld!!!</title>
+    <title>Databaseverbinding</title>
 </head>
 <body>
-    <h1>Hallo wereld!!! :D</h1>
+    <h1>Database Status</h1>
 
     <?php
-    function databaseconnectie() {
-        $host = "10.0.2.4";
-        $user = "sqlmaximeadmin";
-        $pass = "Welkom01!"; // Vul je wachtwoord in indien nodig
-        $databasename = "testctidatabase";
-        $port = 3306;
+mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
-        $connection = mysqli_connect($host, $user, $pass, $databasename, $port);
+try {
+    $conn = mysqli_connect("10.0.2.4", "sqlmaximeadmin", "Welkom01!", "testctidatabase", 3306);
+    echo "<p style='color: green;'>✅ Connectie is gelukt.</p>";
 
-        if (!$connection) {
-            return false; // Verbinding mislukt
+    // Query uitvoeren
+    $result = mysqli_query($conn, "SELECT * FROM verbindingen");
+
+    if ($result && mysqli_num_rows($result) > 0) {
+        echo "<table border='1'>";
+        echo "<tr><th>Verbonden</th><th>Niet Verbonden</th></tr>";
+        while ($row = mysqli_fetch_assoc($result)) {
+            echo "<tr>";
+            echo "<td>" . htmlspecialchars($row['verbonden']) . "</td>";
+            echo "<td>" . htmlspecialchars($row['niet_verbonden']) . "</td>";
+            echo "</tr>";
         }
-
-        return $connection;
-    }
-
-    function databaseConnectieSluiten($conn) {
-        if ($conn) {
-            mysqli_close($conn);
-        }
-    }
-
-    $conn = databaseconnectie();
-
-    if (!$conn) {
-        echo "<p style='color: red;'>❌ Er is geen verbinding met de database.</p>";
+        echo "</table>";
     } else {
-        $query = "SELECT * FROM verbindingen";
-        $result = mysqli_query($conn, $query);
-
-        if ($result && mysqli_num_rows($result) > 0) {
-            echo "<table border='1'>";
-            echo "<tr><th>Verbonden</th><th>Niet Verbonden</th></tr>";
-            while ($row = mysqli_fetch_assoc($result)) {
-                echo "<tr>";
-                echo "<td>" . htmlspecialchars($row['verbonden']) . "</td>";
-                echo "<td>" . htmlspecialchars($row['niet_verbonden']) . "</td>";
-                echo "</tr>";
-            }
-            echo "</table>";
-        } else {
-            echo "<p>📭 Geen gegevens gevonden in de tabel.</p>";
-        }
-
-        databaseConnectieSluiten($conn);
+        echo "<p>📭 Geen gegevens gevonden in de tabel.</p>";
     }
-    ?>
+
+    mysqli_close($conn);
+
+} catch (mysqli_sql_exception $e) {
+    echo "<p style='color: red;'>❌ Databasefout: " . htmlspecialchars($e->getMessage()) . "</p>";
+}
+?>
+
+
 
 </body>
 </html>

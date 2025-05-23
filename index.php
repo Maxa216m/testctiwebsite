@@ -9,9 +9,9 @@
 
     <?php
     function databaseconnectie() {
-        $host = "localhost";
-        $user = "root";
-        $pass = ""; // Vul je wachtwoord in indien nodig
+        $host = "10.0.2.4";
+        $user = "sqlmaximeadmin";
+        $pass = "Welkom01!"; // Vul je wachtwoord in indien nodig
         $databasename = "testctidatabase";
         $port = 3306;
 

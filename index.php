@@ -9,7 +9,7 @@
 
     <?php
     // Verbinding maken met Azure SQL Database (sqlsrv-driver vereist)
-    $serverName = "10.0.2.4,1433"; // IP + poort
+    $serverName = "mysqlserverctimaxime1.database.windows.net,1433"; // IP + poort
     $connectionOptions = array(
         "Database" => "mijnsqldb123", // Let op: NIET "dbo.testctidatabase"
         "Uid" => "sqlmaximeadmin",
